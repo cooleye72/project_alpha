@@ -18,6 +18,10 @@ from streamlit import logout
 from helper_functions import llm
 from helper_functions.query import log_query, delete_query
 
+__import__('pysqlite3')
+import sys
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
