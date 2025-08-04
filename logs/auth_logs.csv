@@ -69,3 +69,7 @@ timestamp,user_email,action
 2025-08-04 07:49:19.423907,jeron.coc1@gmail.com,logout
 2025-08-04 11:04:32.408658,jeron.coc1@gmail.com,logout
 2025-08-04 15:27:57.100673,admin@jeron.ai,login
+2025-08-04 15:54:49.443146,admin@jeron.ai,login
+2025-08-04 15:55:13.325151,admin@jeron.ai,logout
+2025-08-04 15:55:23.327981,admin@jeron.ai,login
+2025-08-04 15:55:45.668360,admin@jeron.ai,logout
