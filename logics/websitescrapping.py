@@ -13,11 +13,12 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from dotenv import load_dotenv
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.core.os_manager import ChromeType
 
 # for streamlit cloud compatibility
@@ -46,7 +47,14 @@ load_dotenv()
 # Function to get number of pages in the website
 def get_page_range_selenium(url: str) -> Dict[str, int]:
     """Extract pagination info using Selenium (for JavaScript-rendered pages)"""
-    # # Set up Chrome options
+    
+    #Set up Chrome options
+    options = Options()
+    options.add_argument("--disable-gpu")
+    options.add_argument("--headless")
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),
+                                  options=options)
+    logger.info(f"DEBUG:DRIVER:{driver}")
     # chrome_options = Options()
     # chrome_options.add_argument("--headless")
     # chrome_options.add_argument("--disable-gpu")
@@ -54,21 +62,7 @@ def get_page_range_selenium(url: str) -> Dict[str, int]:
     # # Initialize browser with Service
     # service = Service(ChromeDriverManager().install())
     # driver = webdriver.Chrome(service=service, options=chrome_options)
-    
-    # For streanlit cloud compatibility
-    def get_driver():
-        return webdriver.Chrome(
-            service=Service(
-                ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()
-            ),
-            options=options,
-        )
-
-    options = Options()
-    options.add_argument("--disable-gpu")
-    options.add_argument("--headless")
-
-    driver = get_driver()
+    #driver = get_driver()
     try:
         driver.get(url)
         
