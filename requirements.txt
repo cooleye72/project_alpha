@@ -1,6 +1,6 @@
 Authlib
 beautifulsoup4
-chromadb==0.5.23
+chromadb
 crewai
 crewai-tools
 google-auth
@@ -12,15 +12,15 @@ openai
 pandas
 redis
 redisvl
-selenium==4.34.0
+selenium
 streamlit
 tiktoken
 python-dotenv
 sentence_transformers
 streamlit-oauth
 requests
-tokenizers==0.20.3
-webdriver-manager==4.0.2
+tokenizers
+webdriver-manager
 tavily-python
 chromium-browser
-chromedriver-autoinstaller==0.4.0
+chromedriver-autoinstaller
