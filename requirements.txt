@@ -22,3 +22,5 @@ requests
 tokenizers==0.20.3
 webdriver-manager==4.0.2
 tavily-python
+chromium-browser
+chromedriver-autoinstaller==0.4.0
