@@ -1,8 +1,8 @@
 
 beautifulsoup4
-chromadb
-crewai
-crewai-tools
+chromadb==0.5.23
+crewai==0.140.0
+crewai-tools==0.55.0
 google-auth
 ipykernel
 langchain
