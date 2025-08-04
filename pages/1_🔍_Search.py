@@ -15,7 +15,7 @@ import pandas as pd
 # Add this to your existing imports
 from langchain_openai import ChatOpenAI
 from streamlit import logout
-from helper_functions import llm
+# from helper_functions import llm
 from helper_functions.query import log_query, delete_query
 
 # Configure logging
