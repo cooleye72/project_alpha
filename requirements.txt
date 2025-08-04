@@ -20,5 +20,3 @@ requests
 tokenizers
 webdriver-manager
 tavily-python
-chromium-browser
-chromedriver-autoinstaller
