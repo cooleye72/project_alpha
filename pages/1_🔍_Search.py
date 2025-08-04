@@ -6,7 +6,7 @@ from datetime import datetime
 # Create the RAG pipeline
 from langchain.chains import RetrievalQA
 # from crewai import Agent, Task, Crew
-from logics.agents import analyze_use_case
+# from logics.agents import analyze_use_case
 from langchain_community.vectorstores import Chroma
 from langchain_community.embeddings import OpenAIEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
