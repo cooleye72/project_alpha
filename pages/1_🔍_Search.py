@@ -74,7 +74,8 @@ def display_results():
         try:
             if st.session_state.deep_search:
                 with st.spinner("🧠 Performing deep analysis using multi-agent..."):
-                    result = analyze_use_case(query)
+                    # result = analyze_use_case(query)
+                    result = "none"
             else:
                 with st.spinner("🔍 Searching with LangChain..."):
                     # RAG pipeline
