@@ -1,4 +1,4 @@
-
+Authlib
 beautifulsoup4
 chromadb==0.5.23
 crewai==0.140.0
