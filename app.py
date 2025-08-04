@@ -6,9 +6,9 @@ import time
 import logging
 from streamlit.components.v1 import html
 
-__import__('pysqlite3')
-import sys
-sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+# __import__('pysqlite3')
+# import sys
+# sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
 # --- Configure logging ---
 logging.basicConfig(level=logging.INFO)

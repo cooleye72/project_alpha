@@ -16,11 +16,11 @@ import pandas as pd
 from langchain_openai import ChatOpenAI
 from streamlit import logout
 from helper_functions import llm
-from helper_functions.query import log_query, delete_query
+from helper_functions.query import log_query
 
-__import__('pysqlite3')
-import sys
-sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+# __import__('pysqlite3')
+# import sys
+# sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -142,6 +142,12 @@ def display_results():
             # Calculate duration
             duration = datetime.now() - start_time
             st.session_state.last_query_time = f"{duration.total_seconds():.2f} seconds"
+            
+            # st.session_state.query_history = pd.concat([
+            #     st.session_state.query_history,
+            #     pd.DataFrame([], columns=['timestamp', 'user_email', 'query', 'response', 'response_time'])
+            # ], ignore_index=True)
+            
             log_query(query, result, duration)
             
             # Display results

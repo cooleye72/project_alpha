@@ -6,9 +6,9 @@ from langchain_community.vectorstores import Chroma
 import logging
 from langchain_community.embeddings import OpenAIEmbeddings
 
-__import__('pysqlite3')
-import sys
-sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+# __import__('pysqlite3')
+# import sys
+# sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
 # Initialize Tavily client
 @tool
