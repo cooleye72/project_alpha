@@ -81,7 +81,7 @@ def get_page_range_selenium(url: str) -> Dict[str, int]:
             
             return {
                 first: numbers[0] || 1,
-                last: numbers[numbers.length - 1] || 1 
+                last: numbers[numbers.length - 2] || 1 
             };
         """)
         
