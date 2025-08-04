@@ -21,3 +21,5 @@ tokenizers
 webdriver-manager
 tavily-python
 pysqlite3-binary
+undetected-chromedriver==3.5.7
+chromium-browser
