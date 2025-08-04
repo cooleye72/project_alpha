@@ -6,7 +6,7 @@ from datetime import datetime
 # Create the RAG pipeline
 from langchain.chains import RetrievalQA
 # from crewai import Agent, Task, Crew
-# from logics.agents import analyze_use_case
+from logics.agents import analyze_use_case
 from langchain_community.vectorstores import Chroma
 from langchain_community.embeddings import OpenAIEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
@@ -78,8 +78,8 @@ def display_results():
         try:
             if st.session_state.deep_search:
                 with st.spinner("🧠 Performing deep analysis using multi-agent..."):
-                    # result = analyze_use_case(query)
-                    result = "none"
+                    result = analyze_use_case(query)
+                    #result = "none"
             else:
                 with st.spinner("🔍 Searching with LangChain..."):
                     # RAG pipeline
