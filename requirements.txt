@@ -1,8 +1,8 @@
 Authlib
 beautifulsoup4
 chromadb==1.0.15
-crewai==0.140.0
-crewai-tools==0.55.0
+crewai
+crewai-tools
 google-auth
 ipykernel
 langchain
