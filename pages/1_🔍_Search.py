@@ -6,7 +6,7 @@ from datetime import datetime
 # Create the RAG pipeline
 from langchain.chains import RetrievalQA
 # from crewai import Agent, Task, Crew
-from logics.agents import analyze_use_case
+from logics import agents
 from langchain_community.vectorstores import Chroma
 from langchain_community.embeddings import OpenAIEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
@@ -17,6 +17,7 @@ from langchain_openai import ChatOpenAI
 from streamlit import logout
 from helper_functions import llm
 from helper_functions.query import log_query
+
 
 # for streamlit cloud compatibility
 __import__('pysqlite3')
@@ -44,10 +45,9 @@ def initialize_vectordb():
 
 
 def display_results():
-    
-    """Main function to display the enhanced search interface"""
-    st.title("IMDA Company Search")
-    
+    st.set_page_config(page_title="Accredited Companies Recommendation", layout="centered")
+    st.title("🔍 Companies Recommendation")
+ 
     # Initialize vector database
     try:
         vectordb = initialize_vectordb()
@@ -59,7 +59,7 @@ def display_results():
         st.session_state.last_query_time = None
     if 'deep_search' not in st.session_state:
         st.session_state.deep_search = False
-    
+    # st.text(f"Loaded with {vectordb._collection.count()} companies")
     # Search input with validation
     query = st.text_area("Enter your query/use case:", 
                         placeholder="e.g. I want to find a product that specializing in talent recruitment.")
@@ -79,7 +79,7 @@ def display_results():
         try:
             if st.session_state.deep_search:
                 with st.spinner("🧠 Performing deep analysis using multi-agent..."):
-                    result = analyze_use_case(query)
+                    result = agents.analyze_use_case(query)
                     #result = "none"
             else:
                 with st.spinner("🔍 Searching with LangChain..."):
@@ -261,6 +261,11 @@ def display_results():
         Always consult qualified professionals for advice.
     </div>
     """, unsafe_allow_html=True)
+    
+    # Show database stats
+    st.sidebar.markdown(f"**Database Stats**")
+    st.sidebar.markdown(f"Total Companies: {vectordb._collection.count()}")
+    st.sidebar.divider()
 
 # Example usage in your main app
 if __name__ == "__main__":

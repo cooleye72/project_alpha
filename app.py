@@ -5,6 +5,7 @@ import os
 import time
 import logging
 from streamlit.components.v1 import html
+from helper_functions.logauth import log_auth_action
 
 # for streamlit cloud compatibility
 __import__('pysqlite3')
@@ -23,44 +24,6 @@ def set_login_layout():
 def set_standard_layout():
     """Set standard layout for all other pages"""
     st.set_page_config(page_title="Jeron.AI", layout="centered")
-
-# --- Log authentication actions to CSV file ---
-def log_auth_action(email: str, action: str):
-    """Log authentication actions (login/logout) with timestamp directly to CSV file.
-    Creates new file if it doesn't exist, otherwise appends to existing file.
-    
-    Args:
-        email (str): User's email address
-        action (str): Either 'login' or 'logout'
-    """
-    import os
-    from datetime import datetime
-    import pandas as pd
-    
-    # Create new log entry
-    new_log = {
-        'timestamp': datetime.now(),
-        'user_email': email,
-        'action': action
-    }
-    
-    # Convert to DataFrame
-    new_log_df = pd.DataFrame([new_log])
-    
-    # File path
-    log_file = 'logs/auth_logs.csv'
-    
-    try:
-        if os.path.exists(log_file):
-            # Append to existing file
-            existing_logs = pd.read_csv(log_file)
-            updated_logs = pd.concat([existing_logs, new_log_df], ignore_index=True)
-            updated_logs.to_csv(log_file, index=False)
-        else:
-            # Create new file
-            new_log_df.to_csv(log_file, index=False)
-    except Exception as e:
-        print(f"Error writing to log file: {str(e)}")
 
 # --- Show Google user profile picture ---
 def show_user_profile():
@@ -145,7 +108,9 @@ def handle_google_login():
         with col2:
             if st.button("Sign in Google", type="secondary", key="google_login"):
                 st.login("google")
-                st.rerun()  # Refresh to check auth status
+                # logger.info("user clicked Google login")
+
+                # st.rerun()  # Refresh to check auth status
     #else:
     #    main_app_page()  # User is logged in, show main app
 
@@ -186,37 +151,39 @@ def main_app_page():
     about = st.Page("pages/4_ℹ️_About.py", title="About")
     methodology = st.Page("pages/5_🔬_Methodology.py", title="Methodology")
     troubleshooting = st.Page("pages/6_🛠️_Troubleshooting.py", title="Troubleshooting")
+    companydirectory = st.Page("pages/8_📂_CompanyDirectory.py", title="Company Directory")
     
     # Show navigation only when logged in
     #if st.user.is_logged_in or 'user' in st.session_state:
     if st.user.is_logged_in:
+        if "login_logged" not in st.session_state:
+            log_auth_action(st.user.email, 'login')
+            logger.info(f"User {st.user.email} logged in successfully")
+            st.session_state.login_logged = True  # Prevent duplicate logging
+        
         pg = st.navigation(
             {
                 #"Account": [logout_page],
                 # "Reports": [dashboard, bugs, alerts],
-                "Tools": [search, searchhistory],
+                "Tools": [search, searchhistory, companydirectory],
                 "Info": [about, methodology],
                 "Troubleshoot": [troubleshooting]
                 
             }
         )
        
-        # st.navigation([
-        #     ("Tools", [search, history]),
-        #     ("Settings", [settings])
-        # ]).run()
     elif 'user' in st.session_state:
         pg = st.navigation(
             {
                 #"Account": [logout_page],
                 # "Reports": [dashboard, bugs, alerts],
-                "Tools": [search, searchhistory],
+                "Tools": [search, searchhistory, companydirectory],
                 "Info": [about, methodology],
                 "Admin": [setup, troubleshooting]
             }
         )
     pg.run()
-    
+
     show_user_profile()
     show_logout_button()
 

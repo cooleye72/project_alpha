@@ -2,11 +2,16 @@ import os
 import streamlit as st
 import logging
 import pandas as pd
-from datetime import datetime
+from datetime import datetime, timezone
+from pytz import timezone as tz
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+#timezone for Singapore
+singapore_tz = tz('Asia/Singapore')
+#singapore_tz = tz('America/New_York')
 
 
 # Add this to save periodically
@@ -36,7 +41,7 @@ def log_query(query: str, response: str, response_time: float):
     """Log query and response to history and CSV"""
     if st.user.is_logged_in:
         new_entry = {
-            'timestamp': datetime.now(),
+            'timestamp': datetime.now(singapore_tz),
             'user_email': st.user.email,
             'query': query,
             'response': response[:5000] + '...' if len(response) > 5000 else response,
@@ -44,7 +49,7 @@ def log_query(query: str, response: str, response_time: float):
         }
     else:
         new_entry = {
-            'timestamp': datetime.now(),
+            'timestamp': datetime.now(singapore_tz),
             'user_email': st.session_state.user['email'],
             'query': query,
             'response': response[:5000] + '...' if len(response) > 5000 else response,
@@ -52,10 +57,10 @@ def log_query(query: str, response: str, response_time: float):
         }
     
     # Add to session state
-    st.session_state.query_history = pd.concat([
-        st.session_state.query_history,
-        pd.DataFrame([new_entry])
-    ], ignore_index=True)
+    # st.session_state.query_history = pd.concat([
+    #     st.session_state.query_history,
+    #     pd.DataFrame([new_entry])
+    # ], ignore_index=True)
     
     # Save to CSV
     save_query_to_csv(new_entry)
