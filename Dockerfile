@@ -1,4 +1,4 @@
-FROM gdssingapore/airbase:python-3.13
+FROM gdssingapore/airbase:python-3.11
 ENV PYTHONUNBUFFERED=TRUE
 COPY --chown=app:app requirements.txt ./
 RUN pip install -r requirements.txt
