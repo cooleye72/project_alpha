@@ -24,7 +24,7 @@ ENV PYTHONUNBUFFERED=TRUE
 
 # 5. Install requirements
 COPY --chown=app:app requirements.txt ./
-RUN pip3.11 install -r requirements.txt
+RUN python3.11 -m pip install -r requirements.txt
 
 # 6. Copy application code
 COPY --chown=app:app . ./
