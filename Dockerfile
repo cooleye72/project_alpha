@@ -10,7 +10,7 @@ RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 1
 
 # 3. Verify Python version
 RUN python3 --version | grep "3.11" && \
-    pip --version | grep "python 3.11
+    pip --version | grep "python 3.11"
 
 # 4. Set environment variables
 ENV PYTHONUNBUFFERED=TRUE
