@@ -1,8 +1,6 @@
 FROM gdssingapore/airbase:python-3.13
 # 1. Install Python 3.11 alongside existing Python
-RUN apt-get update && \
-    apt-get install -y python3.11 python3.11-dev python3.11-venv && \
-    python3.11 -m pip install --upgrade pip && \
+RUN apt-get install -y python3.11 python3.11-dev python3.11-venv && \
     apt-get clean
 
 # 2. Set Python 3.11 as default
