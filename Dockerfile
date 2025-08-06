@@ -1,29 +1,32 @@
 FROM gdssingapore/airbase:python-3.13
-# Remove Python 3.13 and install 3.11
+# 1. Install Python 3.11 alongside existing Python
 RUN apt-get update && \
-    apt-get remove -y python3.13 && \
     apt-get install -y python3.11 python3.11-dev python3.11-venv && \
-    update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 1 && \
+    python3.11 -m pip install --upgrade pip && \
     apt-get clean
 
-# 2. Verify Python version
-RUN python3 --version | grep "3.11" && \
-    pip --version | grep "python 3.11"
+# 2. Set Python 3.11 as default
+RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 1 && \
+    update-alternatives --set python3 /usr/bin/python3.11
 
-# 3. Set environment variables
+# 3. Verify Python version
+RUN python3 --version | grep "3.11" && \
+    pip --version | grep "python 3.11
+
+# 4. Set environment variables
 ENV PYTHONUNBUFFERED=TRUE
 
-# 4. Install requirements
+# 5. Install requirements
 COPY --chown=app:app requirements.txt ./
 RUN pip install -r requirements.txt
 
-# 5. Copy application code
+# 6. Copy application code
 COPY --chown=app:app . ./
 
-# 6. Switch to non-root user
+# 7. Switch to non-root user
 USER app
 
-# 7. Run Streamlit
+# 8. Run Streamlit
 CMD ["bash", "-c", "streamlit run app.py --server.port=$PORT"]
 
 # comment here for build
