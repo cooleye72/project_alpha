@@ -17,6 +17,6 @@ jobs:
           echo "${{ secrets.AIRBASE_RC }}" > ~/.airbaserc
           echo "${{ secrets.AIRBASE_ENV_LOCAL_FILE }}" > .env.local
 
-          airbase container deploy --output deploy.env --yes --project "${{ vars.AIRBASE_PROJECT_HANDLE }}" abc
+          airbase container deploy --output deploy.env --yes --project "${{ vars.AIRBASE_PROJECT_HANDLE }}"
           source deploy.env
           echo "App is deployed successfully! Visit [$DYNAMIC_ENVIRONMENT_URL]($DYNAMIC_ENVIRONMENT_URL) to view your app." >> $GITHUB_STEP_SUMMARY

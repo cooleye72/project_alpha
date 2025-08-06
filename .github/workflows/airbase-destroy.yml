@@ -11,4 +11,4 @@ jobs:
         shell: bash
         run: |
           echo "${{ secrets.AIRBASE_RC }}" > ~/.airbaserc
-          airbase container destroy --yes --project "${{ vars.AIRBASE_PROJECT_HANDLE }}" abc
+          airbase container destroy --yes --project "${{ vars.AIRBASE_PROJECT_HANDLE }}"
