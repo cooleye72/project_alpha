@@ -24,17 +24,17 @@ RUN python3.11 -m pip --version
 # 4. Set environment variables
 ENV PYTHONUNBUFFERED=TRUE
 
-# # 5. Install requirements
-# COPY --chown=app:app requirements.txt ./
-# RUN python3.11 -m pip install -r requirements.txt
+# 5. Install requirements
+COPY --chown=app:app requirements.txt ./
+RUN python3.11 -m pip install -r requirements.txt
 
-# # 6. Copy application code
-# COPY --chown=app:app . ./
+# 6. Copy application code
+COPY --chown=app:app . ./
 
-# # 7. Switch to non-root user
-# USER app
+# 7. Switch to non-root user
+USER app
 
-# # 8. Run Streamlit
-# CMD ["bash", "-c", "python3.11 -m streamlit run app.py --server.port=$PORT"]
+# 8. Run Streamlit
+CMD ["bash", "-c", "python3.11 -m streamlit run app.py --server.port=$PORT"]
 
 # comment here for build
