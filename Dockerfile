@@ -23,6 +23,7 @@ RUN python3.11 -m pip --version
 
 # 4. Set environment variables
 ENV PYTHONUNBUFFERED=TRUE
+ENV PIP_BREAK_SYSTEM_PACKAGES=1
 
 # 5. Install requirements
 COPY --chown=app:app requirements.txt ./
