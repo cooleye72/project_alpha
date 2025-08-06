@@ -15,12 +15,17 @@ RUN python3 --version && \
     python3.11 --version && \
     python3 -m pip --version
 
+# 2. Create and activate a Python 3.11 virtual environment
+RUN python3.11 -m venv /opt/venv311
+ENV PATH="/opt/venv311/bin:$PATH"
+
 # 4. Set environment variables
 ENV PYTHONUNBUFFERED=TRUE
 
 # 5. Install requirements
 COPY --chown=app:app requirements.txt ./
-RUN pip install -r requirements.txt
+RUN /opt/venv311/bin/pip install --upgrade pip && \
+    /opt/venv311/bin/pip install -r requirements.txt
 
 # 6. Copy application code
 COPY --chown=app:app . ./
@@ -29,6 +34,6 @@ COPY --chown=app:app . ./
 USER app
 
 # 8. Run Streamlit
-CMD ["bash", "-c", "streamlit run app.py --server.port=$PORT"]
+CMD ["bash", "-c", "/opt/venv311/bin/python -m streamlit run app.py --server.port=$PORT"]
 
 # comment here for build
