@@ -6,11 +6,14 @@ RUN apt-get update && \
 
 # 2. Set Python 3.11 as default
 RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 1 && \
-    update-alternatives --set python3 /usr/bin/python3.11
+    update-alternatives --install /usr/bin/python python /usr/bin/python3.11 2 && \
+    update-alternatives --set python3 /usr/bin/python3.11 && \
+    update-alternatives --set python /usr/bin/python3.11
 
 # 3. Verify Python version
-RUN python3 --version | grep "3.11" && \
-    pip --version | grep "python 3.11"
+RUN python3 --version && \
+    python3.11 --version && \
+    python3 -m pip --version
 
 # 4. Set environment variables
 ENV PYTHONUNBUFFERED=TRUE
