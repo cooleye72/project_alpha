@@ -39,3 +39,4 @@ USER app
 CMD ["bash", "-c", "python3.11 -m streamlit run app.py --server.port=$PORT"]
 
 # comment here for build
+# hope it works now
