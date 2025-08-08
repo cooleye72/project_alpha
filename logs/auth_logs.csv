@@ -1,4 +1,5 @@
 timestamp,user_email,action
+<<<<<<< HEAD
 2025-08-05 20:49:15.394989+08:00,admin@jeron.ai,login
 2025-08-05 20:53:05.626833+08:00,admin@jeron.ai,logout
 2025-08-05 20:53:47.070643+08:00,jeron.coc1@gmail.com,logout
@@ -29,5 +30,7 @@ timestamp,user_email,action
 2025-08-08 22:15:49.956158+08:00,jina@jeron.ai,logout
 2025-08-08 22:17:14.542569+08:00,admin@jeron.ai,login
 2025-08-08 22:25:06.825972+08:00,admin@jeron.ai,logout
+=======
+>>>>>>> refs/remotes/origin/main
 2025-08-08 22:25:17.117335+08:00,admin@jeron.ai,login
 2025-08-08 22:29:22.233673+08:00,admin@jeron.ai,logout
