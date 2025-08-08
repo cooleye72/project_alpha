@@ -234,7 +234,8 @@ def login_page():
             st.markdown("""
             <div style="text-align: center; padding: 20px;">
                 <h2>About Jeron.AI</h2>
-                <p>Jeron.AI is your AI-powered assistant for all things related to IMDA accredited companies.</p>
+                <p>Jeron.AI is your AI-powered assistant that helps you find and connect with technology solutions provided by IMDA accredited companies.</p>
+                <p>This platform has no affiliation with IMDA and is built for educational purposes.</p>
             </div>
             """, unsafe_allow_html=True)
             
