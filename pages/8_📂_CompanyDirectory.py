@@ -48,7 +48,7 @@ def get_company_data(vectordb):
         return pd.DataFrame()
 
 def main():
-    st.set_page_config(page_title="IMDA Accredited Companies", layout="centered")
+    st.set_page_config(page_title="Company Directory | Jeron.AI", layout="centered")
     st.title("📂 Accredited Companies Directory")
     
     # Initialize vector DB

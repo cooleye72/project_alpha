@@ -45,7 +45,7 @@ def initialize_vectordb():
 
 
 def display_results():
-    st.set_page_config(page_title="Accredited Companies Recommendation", layout="centered")
+    st.set_page_config(page_title="Companies Recommendation | Jeron.AI", layout="centered")
     st.title("🔍 Companies Recommendation")
  
     # Initialize vector database
@@ -80,6 +80,7 @@ def display_results():
             if st.session_state.deep_search:
                 with st.spinner("🧠 Performing deep analysis using multi-agent..."):
                     result = agents.analyze_use_case(query)
+                    
                     #result = "none"
             else:
                 with st.spinner("🔍 Searching with LangChain..."):
@@ -148,7 +149,9 @@ def display_results():
             #     st.session_state.query_history,
             #     pd.DataFrame([], columns=['timestamp', 'user_email', 'query', 'response', 'response_time'])
             # ], ignore_index=True)
-            
+            # logger.info(f"Deep search result: {result}")
+            # logger.info(f"Query: {query}")
+            # logger.info(f"Duration: {duration}")
             log_query(query, result, duration)
             
             # Display results
@@ -184,6 +187,7 @@ def display_results():
             
         except Exception as e:
             st.error(f"Error during search: {str(e)}")
+            #st.error(f"Unexpected response type: {type(response)}")
             st.session_state.last_query_time = None
         # Display query history in sidebar
     

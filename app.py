@@ -147,9 +147,9 @@ def main_app_page():
     # Define your navigation pages
     search = st.Page("pages/1_🔍_Search.py", title="Search")
     searchhistory = st.Page("pages/7_📜_SearchHistory.py", title="Search History")
-    setup = st.Page("pages/2_⚙️_Configuration.py", title="Setup")
+    webscraping = st.Page("pages/2_⚙️_WebScraping.py", title="Web Scraping (Admin Only)")
     about = st.Page("pages/4_ℹ️_About.py", title="About")
-    methodology = st.Page("pages/5_🔬_Methodology.py", title="Methodology")
+    methodology = st.Page("pages/5_🔬_Methodology.py", title="Methodology (Admin Only)")
     troubleshooting = st.Page("pages/6_🛠️_Troubleshooting.py", title="Troubleshooting")
     companydirectory = st.Page("pages/8_📂_CompanyDirectory.py", title="Company Directory")
     
@@ -166,7 +166,7 @@ def main_app_page():
                 #"Account": [logout_page],
                 # "Reports": [dashboard, bugs, alerts],
                 "Tools": [search, searchhistory, companydirectory],
-                "Info": [about, methodology],
+                "Info": [about],
                 "Troubleshoot": [troubleshooting]
                 
             }
@@ -179,11 +179,18 @@ def main_app_page():
                 # "Reports": [dashboard, bugs, alerts],
                 "Tools": [search, searchhistory, companydirectory],
                 "Info": [about, methodology],
-                "Admin": [setup, troubleshooting]
+                "Admin": [webscraping, troubleshooting]
             }
         )
     pg.run()
-
+    
+    # st.markdown("""
+    # ![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=cooleye72_project_alpha&metric=alert_status)
+    # """, unsafe_allow_html=True)
+    # st.markdown("""
+    # ![SonarQube Cloud](https://sonarcloud.io/images/project_badges/sonarcloud-highlight.svg)
+    # """, unsafe_allow_html=True)
+    # st.divider()
     show_user_profile()
     show_logout_button()
 
@@ -230,6 +237,15 @@ def login_page():
                 <p>Jeron.AI is your AI-powered assistant for all things related to IMDA accredited companies.</p>
             </div>
             """, unsafe_allow_html=True)
+            
+            st.markdown("""
+            ![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=cooleye72_project_alpha&metric=alert_status)
+            """, unsafe_allow_html=True)
+            
+            st.markdown("""
+            ![SonarQube Cloud](https://sonarcloud.io/images/project_badges/sonarcloud-highlight.svg)
+            """, unsafe_allow_html=True)
+            
 
 if __name__ == "__main__":
     if not (st.user.is_logged_in or st.session_state.get("user", {}).get("is_logged_in")):

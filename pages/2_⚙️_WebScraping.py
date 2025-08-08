@@ -27,6 +27,7 @@ def scrape_companies(BASE_URL):
     return scraped_companies
 
 def main():
+    st.set_page_config(page_title="Website Scraping | Jeron.AI", layout="centered")
     st.header("IMDA Accreditation Company Scraper")
     BASE_URL = st.text_input("URL to extract companies", "https://www.imda.gov.sg/resources/innovative-tech-companies-directory", disabled=True)
     # Initialize session state for tracking

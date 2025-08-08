@@ -29,19 +29,33 @@ vectordb = Chroma(
 )
 
 # 1. Research Agent - Finds relevant companies from vector DB
+# portfolio_agent = Agent(
+#     role="Tech Analaysis Specialist",
+#     goal="Identify EXISTING companies from the IMDA directory that best match the user's requirements",
+#     backstory="Specializes in analyzing and recommending from known company databases",
+#     verbose=True,
+#     tools=[],  # Uses vector DB directly
+#     allow_delegation=False,
+#     options={
+#         "strict_mode": True,  # Prevents hallucinations
+#         "only_use_existing_data": True
+#     }
+# )
 portfolio_agent = Agent(
-    role="Tech Research Specialist",
-    goal="Identify EXISTING companies from the IMDA directory that best match the user's requirements",
-    backstory="Specializes in analyzing and recommending from known company databases",
+    role="Tech Analysis Specialist",
+    goal="""Identify the most semantically relevant companies from the IMDA directory 
+    based on the user's requirements using advanced vector search techniques""",
+    backstory="""An expert in semantic search and company matching with deep understanding 
+    of vector similarity and business domain knowledge""",
     verbose=True,
-    tools=[],  # Uses vector DB directly
+    tools=[],
     allow_delegation=False,
     options={
-        "strict_mode": True,  # Prevents hallucinations
-        "only_use_existing_data": True
+        "strict_mode": True,
+        "semantic_search": True,  # Enable enhanced semantic processing
+        "similarity_threshold": 0.8  # Minimum match score
     }
 )
-
 # 2. Web Researcher Agent - Gathers additional online information
 web_researcher = Agent(
     role="Web Research Specialist",
@@ -64,14 +78,62 @@ consultant_agent = Agent(
 
 def company_search(company_data: str, use_case: str):
     """Task to find relevant companies from vector DB"""
-    return Task(
-        description=f"Identify from {company_data} that match: {use_case}",
+    return Task( 
+                #Identify from {company_data} that match: {use_case}
+        description=f"""
+        Perform semantic search to identify companies that best match: "{use_case}"
+        
+        Follow these steps:
+        1. Analyze the user's query for key intent
+        2. Map these intent to relevant company capabilities in the vectorstore
+        3. Apply similarity scoring with threshold of 0.8
+        4. Return only highly relevant matches with explanations
+        
+         Available company data: {company_data}
+        """,
         agent=portfolio_agent,
-        expected_output="Shortlist most relevant companies with their key details from the IMDA database",
+        expected_output="Shortlist above 80% relevancy match score companies with their key details from the IMDA database",
         async_execution=True,
         context=[]
     )
-
+# def company_search(company_data: str, use_case: str):
+#     """Enhanced task for semantic company matching"""
+#     return Task(
+#         description=f"""
+#         Perform semantic search to identify companies that best match: "{use_case}"
+        
+#         Follow these steps:
+#         1. Analyze the user's query for key concepts and intent
+#         2. Map these concepts to company capabilities in the vector space
+#         3. Apply similarity scoring with threshold of 0.8
+#         4. Return only highly relevant matches with explanations
+        
+#         Available company data: {company_data[:1000]}... [truncated]
+#         """,
+#         agent=portfolio_agent,
+#         expected_output="""
+#         ## Semantic Match Results (Score ≥70%)
+        
+#         For each matching company provide:
+#         - **Company Name**: [name]
+#         - **Match Score**: XX% (formatted to 2 decimal places)
+#         - **Matching Factors**: 
+#           - Primary matching concept: [concept] 
+#           - Secondary factors: [factor1], [factor2]
+#         - **Relevance Explanation**: 1-2 sentences explaining why this matches
+#         - **Key Capabilities**: Bullet points of relevant capabilities
+        
+#         Format:
+#         ### 1. [Company Name] (Match Score: XX%)
+#         - **Matching Factors**: [factors]
+#         - **Relevance**: [explanation]
+#         - **Capabilities**:
+#           - [Capability 1]
+#           - [Capability 2]
+#         """,
+#         async_execution=True,
+#         context=[]
+#     )
 def web_research_task(company_info: str):
     """Task to gather additional online information"""
     return Task(
@@ -87,7 +149,18 @@ def consultant_task(company_data: str, web_findings: str):
     return Task(
         description="Analyze the company data and web findings to create an executive summary",
         agent=consultant_agent,
-        expected_output="A concise report top 3 recommended IMDA companies with: 1) Company overview 2) Technical capabilities 3) Business value proposition 4) Recommendation 5) Accredited or Spark company status 6) TAL readiness status 7) Website links",
+        expected_output="""
+        A concise report of recommended IMDA companies with: 
+            1) Company overview (relevant match score) 
+            2) Technical capabilities 
+            3) Business value proposition 
+            4) Recommendation 
+            5) Accredited or Spark company status 
+            6) TAL readiness status (If there is TAL Ready, please indicate else put Not applicable) 
+            7) Website URL Link from IMDA directory
+            
+        You may include additional insight that offer relevant technologies beneficial to the user. Just indicate the Company Name and Website URL Link only.
+        """,
         context=[company_data, web_findings]
     )
 

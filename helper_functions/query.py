@@ -38,6 +38,9 @@ def save_query_to_csv(query_data: dict):
 
 # Modify your log_query function to use this:
 def log_query(query: str, response: str, response_time: float):
+    # logger.info(f"Logging query: {query}")
+    # logger.info(f"Logging response: {response}")
+    # logger.info(f"Response time: {response_time}s")
     """Log query and response to history and CSV"""
     if st.user.is_logged_in:
         new_entry = {
@@ -52,7 +55,7 @@ def log_query(query: str, response: str, response_time: float):
             'timestamp': datetime.now(singapore_tz),
             'user_email': st.session_state.user['email'],
             'query': query,
-            'response': response[:5000] + '...' if len(response) > 5000 else response,
+            'response': response,
             'response_time': response_time
         }
     

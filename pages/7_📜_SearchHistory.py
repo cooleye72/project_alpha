@@ -41,8 +41,9 @@ def delete_query(timestamp, user_email):
 
 def display_results():
     """Display query history"""
+    st.set_page_config(page_title="Search History | Jeron.AI", layout="centered")
     st.title("📋 Your Query History")
-    
+    st.session_state.query_history = pd.read_csv('logs/query_history.csv')
     # Filter queries for current user
     # user_queries = st.session_state.query_history[
     #     st.session_state.query_history['user_email'] == st.user.email

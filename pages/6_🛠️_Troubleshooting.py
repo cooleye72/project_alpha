@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 
-
+st.set_page_config(layout="centered", page_title="Troubelshooting | Jeron.AI")
 
 def view_auth_logs():
     """Display authentication logs from CSV file with proper error handling"""
