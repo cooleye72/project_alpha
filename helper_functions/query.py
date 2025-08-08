@@ -47,7 +47,7 @@ def log_query(query: str, response: str, response_time: float):
             'timestamp': datetime.now(singapore_tz),
             'user_email': st.user.email,
             'query': query,
-            'response': response[:5000] + '...' if len(response) > 5000 else response,
+            'response': response,
             'response_time': response_time
         }
     else:
