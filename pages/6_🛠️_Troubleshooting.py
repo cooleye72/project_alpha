@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import pkg_resources
 
 st.set_page_config(layout="centered", page_title="Troubelshooting | Jeron.AI")
 
@@ -40,3 +41,11 @@ st.json(st.user)
 
 st.divider()
 view_auth_logs()
+
+st.divider()
+# Get pip freeze output
+try:
+    packages = subprocess.check_output(["pip", "freeze"]).decode("utf-8")
+    st.code(packages, language="text")
+except Exception as e:
+    st.error(f"Error getting packages: {e}")
