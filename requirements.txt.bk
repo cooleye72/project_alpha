@@ -1,3 +1,4 @@
+Authlib
 beautifulsoup4
 chromadb==0.5.23
 crewai==0.140.0
@@ -13,7 +14,12 @@ streamlit
 streamlit-oauth
 tiktoken
 python-dotenv
+sentence_transformers
 requests
 webdriver-manager
 tavily-python
 pytz
+
+ipykernel
+pysqlite3-binary
+tokenizers

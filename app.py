@@ -8,9 +8,9 @@ from streamlit.components.v1 import html
 from helper_functions.logauth import log_auth_action
 
 # for streamlit cloud compatibility
-__import__('pysqlite3')
-import sys
-sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+# __import__('pysqlite3')
+# import sys
+# sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
 # --- Configure logging ---
 logging.basicConfig(level=logging.INFO)
