@@ -249,6 +249,9 @@ def login_page():
             
 
 if __name__ == "__main__":
+    
+    pg = st.navigation([login_page])
+    pg.run()
     # if not (st.user.is_logged_in or st.session_state.get("user", {}).get("is_logged_in")):
     #     #logging.info("User is not logged in, showing login app page")
     #     pg = st.navigation([login_page])
@@ -256,25 +259,3 @@ if __name__ == "__main__":
     # else:
     #     #logging.info("User is logged in, showing main app page")
     #     main_app_page()
-    
-    def is_authenticated():
-    # Check Streamlit-Authenticator session
-        if hasattr(st, 'authentication_status') and st.authentication_status:
-            return True
-
-        # Check Google auth (if using streamlit-oauth)
-        if hasattr(st, 'user') and st.user is not None:
-            return True
-
-        # Check custom session state
-        if st.session_state.get("user", {}).get("is_logged_in", False):
-            return True
-
-        return False
-
-    # Usage:
-    if not is_authenticated():
-        pg = st.navigation([login_page])
-        pg.run()
-    else:
-        main_app_page()
