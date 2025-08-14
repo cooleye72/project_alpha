@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import pkg_resources
+import subprocess
 
 st.set_page_config(layout="centered", page_title="Troubelshooting | Jeron.AI")
 
