@@ -1,6 +1,8 @@
 FROM python:3.11.13-slim-bookworm AS builder-0
 
 RUN apt-get update
+COPY --chown=app:app requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Stage 2: Final image
 FROM gdssingapore/airbase:python-3.13-builder
