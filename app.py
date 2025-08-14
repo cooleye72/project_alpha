@@ -7,6 +7,7 @@ import logging
 from streamlit.components.v1 import html
 from helper_functions.logauth import log_auth_action
 
+
 # for streamlit cloud compatibility
 # __import__('pysqlite3')
 # import sys
