@@ -12,16 +12,13 @@ jobs:
 
       - name: Create secret files
         run: |
-          
           echo "${{ secrets.DOT_ENV }}" > .env
-          # mkdir .streamlit
-          cat << 'EOF' > .streamlit/secrets.toml
+        
+          mkdir -p .streamlit
+          cat <<EOF > .streamlit/secrets.toml
           ${{ secrets.SECRET_TOML }}
           EOF
-
-          # echo "${{ secrets.SECRET_TOML }}" > .streamlit/secrets.toml
-          pwd
-          ls -l
+          
           ls -la .env .streamlit/secrets.toml
       - name: Airbase Build
         run: airbase container build
@@ -30,7 +27,10 @@ jobs:
         run: |
           echo "${{ secrets.AIRBASE_RC }}" > ~/.airbaserc
           echo "${{ secrets.AIRBASE_ENV_LOCAL_FILE }}" > .env.local
-    
+          
+          # Ensure secret files are included in deployment
+          cp .env .streamlit/secrets.toml ./build/ || true
+
           airbase container deploy --output deploy.env --yes --project "${{ vars.AIRBASE_PROJECT_HANDLE }}"
           source deploy.env
           echo "App is deployed successfully! Visit [$DYNAMIC_ENVIRONMENT_URL]($DYNAMIC_ENVIRONMENT_URL) to view your app." >> $GITHUB_STEP_SUMMARY
