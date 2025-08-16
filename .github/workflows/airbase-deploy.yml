@@ -15,7 +15,11 @@ jobs:
           
           echo "${{ secrets.DOT_ENV }}" > .env
           # mkdir .streamlit
-          echo "${{ secrets.SECRET_TOML }}" > .streamlit/secrets.toml
+          cat << 'EOF' > .streamlit/secrets.toml
+          ${{ secrets.SECRET_TOML }}
+          EOF
+
+          # echo "${{ secrets.SECRET_TOML }}" > .streamlit/secrets.toml
           pwd
           ls -l
           ls -la .env .streamlit/secrets.toml
