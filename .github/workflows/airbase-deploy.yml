@@ -14,7 +14,7 @@ jobs:
         run: |
           
           echo "${{ secrets.DOT_ENV }}" > .env
-          mkdir .streamlit
+          # mkdir .streamlit
           echo "${{ secrets.SECRET_TOML }}" > .streamlit/secrets.toml
           pwd
           ls -l
