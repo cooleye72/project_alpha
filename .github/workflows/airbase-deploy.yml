@@ -12,11 +12,11 @@ jobs:
 
       - name: Create secret files
         run: |
-          echo "${{ secrets.DOT_ENV }}" > .env
+          echo "${{ secrets.DOT_ENV }}" > build/.env
     
-          echo "${{ secrets.STREAMLIT_SECRETS_TOML }}" > secrets.toml
-          
-          ls -la .env secrets.toml
+          echo "${{ secrets.STREAMLIT_SECRETS_TOML }}" > build/secrets.toml
+          pwd
+          ls -la build/.env build/secrets.toml
       - name: Airbase Build
         run: airbase container build
       - name: Airbase Deploy
@@ -24,7 +24,7 @@ jobs:
         run: |
           echo "${{ secrets.AIRBASE_RC }}" > ~/.airbaserc
           echo "${{ secrets.AIRBASE_ENV_LOCAL_FILE }}" > .env.local
-        
+    
 
           airbase container deploy --output deploy.env --yes --project "${{ vars.AIRBASE_PROJECT_HANDLE }}"
           source deploy.env
