@@ -17,6 +17,7 @@ jobs:
     
           echo "${{ secrets.STREAMLIT_SECRETS_TOML }}" > build/secrets.toml
           pwd
+          ls -l
           ls -la build/.env build/secrets.toml
       - name: Airbase Build
         run: airbase container build
