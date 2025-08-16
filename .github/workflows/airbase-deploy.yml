@@ -15,7 +15,7 @@ jobs:
           mkdir build
           echo "${{ secrets.DOT_ENV }}" > build/.env
     
-          echo "${{ secrets.STREAMLIT_SECRETS_TOML }}" > build/secrets.toml
+          echo "${{ secrets.SECRET_TOML }}" > build/secrets.toml
           pwd
           ls -l
           ls -la build/.env build/secrets.toml
