@@ -15,8 +15,9 @@ jobs:
           echo "${{ secrets.DOT_ENV }}" > .env
         
           mkdir -p .streamlit
-
-          echo "${{ secrets.SECRET_TOML }}" > .streamlit/secretstoml
+          cat <<EOF > .streamlit/secrets.toml
+          ${{ secrets.STREAMLIT_SECRETS_TOML }}
+          EOF
           
           ls -la .env .streamlit/secrets.toml
       - name: Airbase Build
@@ -27,7 +28,6 @@ jobs:
           echo "${{ secrets.AIRBASE_RC }}" > ~/.airbaserc
           echo "${{ secrets.AIRBASE_ENV_LOCAL_FILE }}" > .env.local
           
-          # Ensure secret files are included in deployment
           cp .env .streamlit/secrets.toml ./build/ || true
 
           airbase container deploy --output deploy.env --yes --project "${{ vars.AIRBASE_PROJECT_HANDLE }}"
