@@ -18,8 +18,11 @@ jobs:
           cat <<EOF > .streamlit/secrets.toml
           ${{ secrets.SECRET_TOML }}
           EOF
-          
+
+          pwd
+          ls -l
           ls -la .env .streamlit/secrets.toml
+          vi .env
       - name: Airbase Build
         run: airbase container build
       - name: Airbase Deploy
@@ -28,9 +31,6 @@ jobs:
           echo "${{ secrets.AIRBASE_RC }}" > ~/.airbaserc
           echo "${{ secrets.AIRBASE_ENV_LOCAL_FILE }}" > .env.local
           
-          # Ensure secret files are included in deployment
-          cp .env .streamlit/secrets.toml ./build/ || true
-
           airbase container deploy --output deploy.env --yes --project "${{ vars.AIRBASE_PROJECT_HANDLE }}"
           source deploy.env
           echo "App is deployed successfully! Visit [$DYNAMIC_ENVIRONMENT_URL]($DYNAMIC_ENVIRONMENT_URL) to view your app." >> $GITHUB_STEP_SUMMARY
