@@ -29,7 +29,7 @@ ENV PYTHONUNBUFFERED=TRUE
 COPY --chown=app:app requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 COPY --chown=app:app . ./
-COPY --chown=app:app ./build/.env ./
-COPY --chown=app:app ./build/secrets.toml ./.streamlit/secrets.toml
+# COPY --chown=app:app ./build/.env ./
+# COPY --chown=app:app ./build/secrets.toml ./.streamlit/secrets.toml
 USER app
 CMD ["bash", "-c", "streamlit run app.py --server.port=$PORT"]
