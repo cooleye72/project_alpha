@@ -22,9 +22,8 @@ COPY --from=builder-0 /usr/local/lib/libpython3.11.so* /usr/local/lib/
 # COPY --from=builder-0 /usr/local/lib/python3.11/site-packages/streamlit /usr/local/lib/python3.11/site-packages/streamlit
 
 RUN update-alternatives --install /usr/local/bin/python python /usr/local/bin/python3.11 1 && \
-    update-alternatives --install /usr/local/bin/python3 python3 /usr/local/bin/python3.11 1
-    #  && \
-    # /usr/local/bin/python3.11 -m pip install --no-cache-dir --upgrade pip
+    update-alternatives --install /usr/local/bin/python3 python3 /usr/local/bin/python3.11 1 && \
+    /usr/local/bin/python3.11 -m pip install --no-cache-dir --upgrade pip
 
 ENV PYTHONUNBUFFERED=TRUE
 COPY --chown=app:app requirements.txt ./
